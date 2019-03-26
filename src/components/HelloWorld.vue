@@ -1,12 +1,5 @@
 <template>
     <div style="width: 300px; margin: 0 auto;">
-        <div class="op">
-            <div class="op-item"><label>count:</label><input type="text" v-model.number.lazy="count"></div>
-            <div class="op-item"><label>start: </label><input type="text" v-model.number.lazy="start"></div>
-            <div class="op-item"><label>remain: </label><input type="text" v-model.number.lazy="remain"></div>
-            <!-- <div class="op-item"><label>size: </label><input type="text" v-model.number.lazy="size"></div> -->
-            <div class="op-item"><label>bench: </label><input type="text" v-model.number.lazy="bench"></div>
-        </div>
         <VirtualList class="list"
             :size="50"
             :remain="remain"
@@ -14,14 +7,16 @@
             :start="start"
             :item="item"
             :itemcount="count"
-            :itemdata="itemdata"
-            :itemprop="itemBinding"
+            :itemprops="itemBinding"
         ></VirtualList>
-        <!-- <div class="source">
-            <a href="https://github.com/tangbc/vue-virtual-scroll-list/blob/master/examples/finite/finite.vue#L1">
-                View this demo source code
-            </a>
-        </div> -->
+        <!-- <VirtualList class="list"
+            :size="50"
+            :remain="remain"
+            :bench="bench"
+            :start="start"
+        >
+            <item v-for="(item, index) in itemdata" :key="index" :index="index" />
+        </VirtualList> -->
     </div>
 </template>
 
@@ -32,10 +27,13 @@ var TenThousand = 10000
 var INIT_COUNT = TenThousand * 50
 export default {
   name: 'finite-test-item-mode',
-  components: { Item, VirtualList },
+  components: {
+    // Item,
+    VirtualList
+  },
   data () {
     let items = []
-    for (let i = 0; i < 100000; i++) {
+    for (let i = 0; i < 500000; i++) {
       items[i] = {index: i}
     }
     return {
@@ -45,10 +43,6 @@ export default {
       bench: 6,
       itemdata: items,
       item: Item
-    }
-  },
-  watch: {
-    count: function (val) {
     }
   },
   methods: {
